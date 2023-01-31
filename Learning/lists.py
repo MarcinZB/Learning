@@ -22,8 +22,5 @@ else:
     angle-=1
 """
 
-the_list = [0,1,2,3]
-
-print(the_list[0:len(the_list)-1])
-print(the_list[:])
-print(the_list[-3:-1])
+the_list = [x for x in range(1,5)]
+print(the_list)
