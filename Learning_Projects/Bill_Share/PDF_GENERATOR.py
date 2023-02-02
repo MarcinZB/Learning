@@ -1,38 +1,6 @@
-###########################################
-# Aplikacja oblicza podział rachunku za   #
-# mieszkanie dla osób razem mieszkających #
-# dodatkowo generowany jest raport        #
-# w którym umieszczony zostaje wynik      #
-# zwrócony przez program                  #
-###########################################
-
 from fpdf import FPDF
 import webbrowser
-class Bill:
-    """
-    Objekt reprezentuje dane dotyczące rachunku, takie jak
-    cena oraz okres rozliczeniowy
-    """
-
-    def __init__(self, amount, period):
-        self.amount = amount
-        self.period = period
-
-
-class Flatmate:
-    """
-    Klasa reprezentuje obiekt osoby składającej się na rachunek
-    """
-
-    def __init__(self, name, days_in_house):
-        self.name = name
-        self.days_in_house = days_in_house
-    
-    def pays(self, bill, flatmate2 ):
-        weight = self.days_in_house/(self.days_in_house+flatmate2.days_in_house)
-        to_pay = bill.amount*weight
-        return to_pay
-
+import os
 
 class PdfReport:
     """
@@ -42,6 +10,7 @@ class PdfReport:
 
     def __init__(self, filename):
         self.filename = filename
+        
     
     def generatePDF(self, flatmate1, flatmate2, bill):
 
@@ -74,20 +43,11 @@ class PdfReport:
         pdf.cell(w=150, h=20, txt=flatmate1_pay, border=0, ln=1)
         pdf.cell(w=100, h=20, txt=flatmate2.name, border=0)
         pdf.cell(w=150, h=20, txt=flatmate2_pay, border=0, ln=1)
-
-        pdf.output(self.filename)
-
+        
+        os.chdir("Learning_Projects/Bill_Share/files") #zmiana folderu w którym kod się wykonuje
+        pdf_final = pdf.output(self.filename)
         #Automatyczne wyświetlanie wygenerowanego pliku
-        webbrowser.open(self.filename) # Windows sam generuje ścieżkę
+        webbrowser.open(self.filename)
 
         # W przypadku Linuxa oraz MacIOS należy wygenerować ściężkę samemu
         # webbrowser.open('file://'+os.path.realpath(self.filename))
-
-
-the_bill = Bill(amount=120, period="March 2021")
-john = Flatmate(name="John", days_in_house=20)
-marry = Flatmate(name="Marry", days_in_house=25)
-
-pdf_report = PdfReport(filename="Report_1.pdf")
-pdf_report.generatePDF(flatmate1=john, flatmate2=marry, bill=the_bill)
-
