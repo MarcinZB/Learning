@@ -6,7 +6,7 @@
 # zwrócony przez program                  #
 ###########################################
 from Bill_Flatmate import Bill, Flatmate
-from PDF_GENERATOR import PdfReport
+from PDF_GENERATOR import PdfReport, FileSharer
 
 user_pay = float(input("Hello, enter the bill value: "))
 user_period = input("What is the period of the bill ?: ")
@@ -23,3 +23,8 @@ print(f"{user_name_2} pays: {round(user_2.pays(the_bill, user_1),2)}")
 
 pdf_report = PdfReport(filename=f"{user_period}.pdf")
 pdf_report.generatePDF(flatmate1=user_1, flatmate2=user_2, bill=the_bill)
+
+# Wygenerowania adresu URL
+file_sharer = FileSharer(pdf_report.filename)
+linkURL = file_sharer.share()
+print(f"Link to pdf bill: {linkURL}")
