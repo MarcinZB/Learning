@@ -21,16 +21,16 @@ class Canvas:
     
     def create_canvas(self, background_color):
         canvas = np.zeros((self.height, self.width, 3), dtype=np.uint8)
-        try:
-            if background_color == "black":
-                canvas[:] = [0,0,0]
-            elif background_color == "white":
-                canvas[:] = [255,255,255]
-        except:
-            print("There are only two options black and white for now")
-            print("The color has been selected by program")
+        
+        if background_color == "black":
+            canvas[:] = [0,0,0]
+        elif background_color == "white":
             canvas[:] = [255,255,255]
-            return canvas
+        else:
+            print("There are only two options black and white for now")
+            print("The color has been selected by program as a white")
+            canvas[:] = [255,255,255]
+
         final_canvas = Image.fromarray(canvas, "RGB")
         final_canvas.save("Canvas.png")
 
