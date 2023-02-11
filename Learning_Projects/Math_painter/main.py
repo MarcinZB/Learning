@@ -10,65 +10,46 @@
 #     określa kolor tła. Sam decyduje kiedy kończy            #
 #     rysowanie figur.                                        #   
 ###############################################################
-from PIL import Image
-import numpy as np
+from background import Canvas
+from figures import Square, Rectangle
 
-class Canvas:
-
-    def __init__(self, width, height, color):
-        self.width = width
-        self.height = height
-        self.color = color
-
-    def create_canvas(self):
-        self.canvas = np.zeros((self.height,self.width,3), dtype=np.uint8)
-        return self.canvas
-
-    def select_color(self):
-        
-        if self.color == "black":
-            self.canvas[:] = [0,0,0]
-        elif self.color == "white":
-            self.canvas[:] = [255,255,255]
-        else:
-            print("There are only two options black and white for now")
-            print("The color has been selected by program as a white")
-            self.canvas[:] = [255,255,255]
-        return self.canvas
-
-    def generate_img(self, final_art):
-        final_canvas = Image.fromarray(final_art, "RGB")
-        final_canvas.save("Canvas.png")
-
-
-
-class Square:
-
-    def __init__(self, x, y,color, edge):
-        self.x = x
-        self.y = y
-        self.color = color
-        self.edge = edge
-    
-    def create_figure(self, background):
-        self.square = background.canvas[self.x:self.edge, self.y:self.edge] = [255,0,0]
-        
-        return self.square
-
-        
-
-    def select_square_color(self):
-        pass
-
-
-class Rectangle:
-    def __init__(self) -> None:
-        pass
-
-
-canv = Canvas(10,10, "white")
+width_of_canv = int(input("What is the width of the canvas ?:"))
+height_of_canv = int(input("What is the height of the canvas ?:"))
+R = int(input("Give value of the RED (0-255):"))
+G = int(input("Give value of the GREEN (0-255):"))
+B = int(input("Give value of the BLUE (0-255):"))
+canv = Canvas(height_of_canv,width_of_canv, (R,G,B))
 canv_table = canv.create_canvas()
-color = canv.select_color()
-squaree = Square(1,1,"any",3)
-sq = squaree.create_figure(color)
-print(sq)
+canv.generate_img("Canvas.png")
+
+while True:
+
+    answer = int((input("Select what you want to do(number of choice):\n 1.Draw square\n 2.Draw rectangle\n 3.Exit\n")))
+
+    if answer == 1:
+        start_point_x = int(input("Give X value: "))
+        start_point_y = int(input("Give Y value: "))
+        len_of_edge = int(input("Give the length of the edge: "))
+        R = int(input("Give value of the RED (0-255):"))
+        G = int(input("Give value of the GREEN (0-255):"))
+        B = int(input("Give value of the BLUE (0-255):"))
+        sq = Square(start_point_x,start_point_y,(R,G,B),len_of_edge)
+        sq.create_figure(canv)
+        canv.generate_img("Canvas.png")
+
+    if answer == 2:
+        start_point_x = int(input("Give X value: "))
+        start_point_y = int(input("Give Y value: "))
+        len_of_width = int(input("Give the length of the first edge: "))
+        len_of_height = int(input("Give the length of the second edge: "))
+        R = int(input("Give value of the RED (0-255):"))
+        G = int(input("Give value of the GREEN (0-255):"))
+        B = int(input("Give value of the BLUE (0-255):"))
+        rec = Rectangle(start_point_x,start_point_x,len_of_width,len_of_height,(R,G,B))
+        rec.create_figure(canv)
+        canv.generate_img("Canvas.png")
+
+    if answer == 3:
+        print("Thanks for drawing :)")
+        canv.generate_img("Canvas.png")
+        break
