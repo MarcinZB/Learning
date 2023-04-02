@@ -1,0 +1,39 @@
+<FirstScreen>:
+    GridLayout:
+        cols: 1
+        padding: 15
+        spacing: 10
+        Image:
+            id: img
+            size_hint_y: 0.1
+        Button:
+            size_hint_y: 0.1
+            text: 'START'
+            on_press: root.start()
+        Button:
+            size_hint_y: 0.1
+            text: 'CAPTURE'
+            on_press: root.capture()
+<SecondScreen>
+    GridLayout:
+        cols: 1
+        padding: 15
+        spacing: 10
+        Image:
+            id: img
+            size_hint_y: 0.1
+        Button:
+            size_hint_y: 0.1
+            text: 'START'
+            on_press: root.start()
+        Button:
+            size_hint_y: 0.1
+            text: 'CAPTURE'
+            on_press: root.capture()
+<RootWidget>:
+    FirstScreen:
+        id: camera_screen
+        name: 'camera_screen'
+    SecondScreen:
+        id: image_screen
+        name: 'image_screen'
