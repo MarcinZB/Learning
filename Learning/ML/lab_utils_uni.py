@@ -75,7 +75,7 @@ def plt_intuition(x_train, y_train):
         cost[i] = compute_cost(x_train, y_train, tmp_w, tmp_b)
 
     @interact(w=(*w_range,10),continuous_update=False)
-    def func( w=150):
+    def func( w=200):
         f_wb = np.dot(x_train, w) + tmp_b
 
         fig, ax = plt.subplots(1, 2, constrained_layout=True, figsize=(8,4))

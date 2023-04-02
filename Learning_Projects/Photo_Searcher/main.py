@@ -9,22 +9,26 @@ Builder.load_file('frontend.kv')
 
 class FirstScreen(Screen):
 
-    def search_image(self):
+    def get_image_link(self):
         # pobiera wpisana wartość
         query = self.manager.current_screen.ids.user_query.text
+        print(query)
         #wyszukanie wpisanej frazy 
         page = wikipedia.page(query)
         #wybór obrazu
         image_link = page.images[0]
-
+        return image_link 
+    
+    def download_image(self):
         #pobranie obrazu
-        req = requests.get(image_link)
+        req = requests.get(self.get_image_link())
         imagepath = 'image.jpg'
         with open(imagepath, 'wb') as file:
             file.write(req.content)
-        
-        self.manager.current_screen.ids.img.source = imagepath
-
+        return imagepath
+    
+    def set_image(self): 
+        self.manager.current_screen.ids.img.source = self.download_image()
 
 
 class RootWidget(ScreenManager):
