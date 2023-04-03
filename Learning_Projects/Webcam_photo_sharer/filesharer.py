@@ -1,3 +1,4 @@
+from filestack import Client
 class FileSharer: 
     """
     Dodanie opcji udostępnienia pliku przy pomocy filestack

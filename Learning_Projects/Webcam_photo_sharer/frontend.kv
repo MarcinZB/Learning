@@ -4,24 +4,55 @@
         padding: 20
         spacing: 10
         Camera:
+            id: camera
             resolution: (1080, 960)
-            play: True
+            play: False
+            size_hint_y: 0.8
+            opacity: 0
         Button:
+            id: camera_button
             text: 'START CAMERA'
             size_hint_y: 0.1
-            on_press: root.start()
-        Button:
-            text: 'STOP CAMERA'
-            size_hint_y: 0.1
-            on_press: root.stop()
+            on_press: root.start() if root.ids.camera.play == False else root.stop()
 
         Button:
             text: 'CAPTURE VIEW'
             size_hint_y: 0.1
-            on_press: root.capture
+            on_press: root.capture()
+<ImageScreen>
+    GridLayout:
+        cols: 1
+        padding: 20
+        spacing: 10
+        Image:
+            id: img
+            size_hint_y: 0.8
+        Button:
+            text: "CREATE SHARABLE LINK"
+            size_hint_y: 0.1
+            on_press: root.create_link()
+        Label:
+            id: link
+            text: ""
+            size_hint_y: 0.1
+        GridLayout:
+            cols: 2
+            padding: 10
+            spacing: 10
+            size_hint_y: 0.2
+            Button:
+                text: 'COPY LINK'
+                size_hint_y: 0.1
+                on_press: root.copy_link()
+            Button:
+                text: 'OPEN LINK'
+                size_hint_y: 0.1
+                on_press: root.open_link()
 
 <RootWidget>:
     CameraScreen:
         id: camera_screen
         name: 'camera_screen'
-    
+    ImageScreen:
+        id: image_screen
+        name: 'image_screen'
